@@ -19,11 +19,12 @@
     @yield('admin_css')
 </head>
 <body>
-    <div id="app">
+
         <main class="py-4">
+        	@include('admin.partials.navbar')
             @yield('content')
         </main>
-    </div>
+    
     <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
 </body>
 </html>
