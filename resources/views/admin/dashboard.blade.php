@@ -132,8 +132,5 @@
         </main>
       </div>
     </div>
-
-
-
     <!-- Graphs -->
  @endsection
