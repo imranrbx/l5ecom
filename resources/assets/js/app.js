@@ -12,6 +12,7 @@ const feather = require('feather-icons');
 window.ClassicEditor = require('@ckeditor/ckeditor5-build-classic');
 //import select2 from 'select2';
 window.select2 = require('select2');
+window.flatpickr = require("flatpickr");
 feather.replace();
  window.slugify = function(text){
         return text.toString().toLowerCase()

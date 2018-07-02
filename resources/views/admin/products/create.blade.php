@@ -40,27 +40,29 @@
 				<label class="form-control-label">Discount: </label>
 				<div class="input-group mb-3">
 					<div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1"><input type="checkbox" name="discount" value="0" /></span>
+						<span class="input-group-text" id="discount">
+							<input type="checkbox" name="discount" value="0" />
+						</span>
 					</div>
-					<input type="text" class="form-control" name="discount_price" placeholder="0.00" aria-label="discount_price" aria-describedby="basic-addon1" disabled />
+					<input type="text" class="form-control" name="discount_price" placeholder="0.00" aria-label="discount_price" aria-describedby="discount" disabled />
 				</div>
 			</div>
 			<div class="col-6 col-lg-3">
 				<label class="form-control-label">Featured: </label>
 				<div class="input-group mb-3">
 					<div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1"><input type="checkbox" name="discount" value="0" /></span>
+						<span class="input-group-text" id="featured"><input type="checkbox" name="discount" value="0" /></span>
 					</div>
-					<input type="text" class="form-control" name="discount_price" placeholder="0.00" aria-label="discount_price" aria-describedby="basic-addon1" disabled />
+					<input type="text" class="form-control" name="featured" placeholder="0.00" aria-label="featured" aria-describedby="featured" disabled />
 				</div>
 			</div>
 			<div class="col-6  col-lg-3">
 				<label class="form-control-label">On Sale: </label>
 				<div class="input-group mb-3">
 					<div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1"><input type="checkbox" name="discount" value="0" /></span>
+						<span class="input-group-text" id="onsale"><input type="checkbox" name="discount" value="0" /></span>
 					</div>
-					<input type="text" class="form-control" name="discount_price" placeholder="0.00" aria-label="discount_price" aria-describedby="basic-addon1" disabled />
+					<input type="text" class="form-control" name="onsale" placeholder="0.00" aria-label="onsale" aria-describedby="onsale" />
 				</div>
 			</div>
 		</div>
@@ -114,9 +116,6 @@
 					<div class="custom-file">
 						<input type="file" class="custom-file-input" name="thumbnail" id="thumbnail">
 						<label class="custom-file-label" for="thumbnail">Choose file</label>
-					</div>
-					<div class="input-group-append">
-						<span class="input-group-text" id="">Upload</span>
 					</div>
 				</div>
 				<div class="img-thumbnail">
@@ -179,14 +178,14 @@ $('#btn-add').on('click', function(e){
 		var count = $('.options').length+1;
 		$('#extras').append('<div class="row align-items-center options">\
 						<div class="col-sm-4">\
-								<label class="form-control-label">Option <span>'+count+'</span></label>\
-								<input type="text" name="extra[\'option\'][]" class="form-control" value="" placeholder="size">\
+									<label class="form-control-label">Option <span>'+count+'</span></label>\
+									<input type="text" name="extra[\'option\'][]" class="form-control" value="" placeholder="size">\
 						</div>\
 						<div class="col-sm-8">\
-								<label class="form-control-label">Values</label>\
-								<input type="text" name="extra[\'values\'][]" class="form-control" placeholder="options1 | option2 | option3" />\
-								<label class="form-control-label">Additional Prices</label>\
-								<input type="text" name="extra[\'prices\'][]" class="form-control" placeholder="price1 | price2 | price3" />\
+									<label class="form-control-label">Values</label>\
+									<input type="text" name="extra[\'values\'][]" class="form-control" placeholder="options1 | option2 | option3" />\
+									<label class="form-control-label">Additional Prices</label>\
+									<input type="text" name="extra[\'prices\'][]" class="form-control" placeholder="price1 | price2 | price3" />\
 						</div>\
 					</div>');
 })
@@ -196,6 +195,19 @@ $('#btn-remove').on('click', function(e){
 			$('.options:last').remove();
 		}
 })
-	})
+   $("input[name=onsale]").flatpickr({
+   	altInput: true,
+    altFormat: "F j, Y",
+    dateFormat: "d-m-Y",
+    minDate: 'today'
+   });
+$('#discount input[type=checkbox]').on('click', function(){
+	
+	if($(this).is(":checked"))
+		$('input[name=discount_price]').removeAttr('disabled');
+	else
+		$('input[name=discount_price]').prop('disabled','disabled');
+})
+})
 </script>
 @endsection

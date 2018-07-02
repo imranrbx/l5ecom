@@ -32,6 +32,13 @@
             </nav>
             <div class="container-fluid">
                 <div class="row">
+                    <div class="col-md-12">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                               @yield("breadcrumbs")
+                            </ol>
+                        </nav>
+                    </div>
                     <nav class="col-md-2 d-none d-md-block bg-light sidebar">
                         @include('admin.partials.navbar')
                     </nav>
