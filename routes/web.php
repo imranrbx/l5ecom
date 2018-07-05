@@ -20,7 +20,10 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['as'=>'admin.', 'middleware'=>['auth','admin'], 'prefix'=>'admin'], function(){
-	Route::get('/dashboard', 'AdminController@dashboard')->name('dashboard');
+	Route::get('category/{category}/remove','CategoryController@remove')->name('category.remove');
+	Route::get('category/trash', 'CategoryController@trash')->name('category.trash');
+	Route::get('category/recover/{id}', 'CategoryController@recoverCat')->name('category.recover');
+	Route::get('dashboard', 'AdminController@dashboard')->name('dashboard');
 	Route::resource('product', 'ProductController');
 	Route::resource('category', 'CategoryController');
 });

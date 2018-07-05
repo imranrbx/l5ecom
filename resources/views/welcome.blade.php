@@ -79,7 +79,8 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Perfect Web Solutions
+                    <p>پرفیکٹ ویب سلوشنز</p>
+                    <p>Perfect Web Solutions</p>
                 </div>
 
                 <div class="links">

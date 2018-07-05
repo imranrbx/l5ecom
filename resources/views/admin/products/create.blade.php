@@ -13,9 +13,9 @@
 			<div class="form-group row">
 				<div class="col-lg-12">
 					<label class="form-control-label">Title: </label>
-					<input type="text" id="txturl" name="title" class="form-control ">
-					<p class="small">{{config('app.url')}}<span id="url"></span>
-					<input type="hidden" name="slug" id="slug" value="">
+					<input type="text" id="txturl" name="title" class="form-control " {{@$product->title}} />
+					<p class="small">{{config('app.url')}}<span id="url">{{@$product->slug}}</span>
+					<input type="hidden" name="slug" id="slug" value="{{@$product->slug}}">
 				</p>
 			</div>
 		</div>
@@ -23,51 +23,31 @@
 			
 			<div class="col-lg-12">
 				<label class="form-control-label">Description: </label>
-				<textarea name="description" id="editor" class="form-control "></textarea>
+				<textarea name="description" id="editor" class="form-control ">{!! @$product->description !!}</textarea>
 			</div>
 		</div>
 		<div class="form-group row">
-			<div class="col-6 col-lg-3">
+			<div class="col-6">
 				<label class="form-control-label">Price: </label>
 				<div class="input-group mb-3">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="basic-addon1">$</span>
 					</div>
-					<input type="text" class="form-control" placeholder="0.00" aria-label="Username" aria-describedby="basic-addon1">
+					<input type="text" class="form-control" placeholder="0.00" aria-label="Username" aria-describedby="basic-addon1" value="{{@$product->price}}" />
 				</div>
 			</div>
-			<div class="col-6  col-lg-3">
+			<div class="col-6">
 				<label class="form-control-label">Discount: </label>
 				<div class="input-group mb-3">
 					<div class="input-group-prepend">
-						<span class="input-group-text" id="discount">
-							<input type="checkbox" name="discount" value="0" />
-						</span>
+						<span class="input-group-text" id="basic-addon1">$</span>
 					</div>
-					<input type="text" class="form-control" name="discount_price" placeholder="0.00" aria-label="discount_price" aria-describedby="discount" disabled />
-				</div>
-			</div>
-			<div class="col-6 col-lg-3">
-				<label class="form-control-label">Featured: </label>
-				<div class="input-group mb-3">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="featured"><input type="checkbox" name="discount" value="0" /></span>
-					</div>
-					<input type="text" class="form-control" name="featured" placeholder="0.00" aria-label="featured" aria-describedby="featured" disabled />
-				</div>
-			</div>
-			<div class="col-6  col-lg-3">
-				<label class="form-control-label">On Sale: </label>
-				<div class="input-group mb-3">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="onsale"><input type="checkbox" name="discount" value="0" /></span>
-					</div>
-					<input type="text" class="form-control" name="onsale" placeholder="0.00" aria-label="onsale" aria-describedby="onsale" />
+					<input type="text" class="form-control" name="discount_price" placeholder="0.00" aria-label="discount_price" aria-describedby="discount" value="{{@$product->discount_price}}" />
 				</div>
 			</div>
 		</div>
 		<div class="form-group row">
-			<div class="card col-sm-12 p-0">
+			<div class="card col-sm-12 p-0 mb-2">
 				<div class="card-header align-items-center">
 					<h5 class="card-title float-left">Extra Options</h5>
 					<div class="float-right" >
@@ -113,13 +93,23 @@
 			<li class="list-group-item active"><h5>Feaured Image</h5></li>
 			<li class="list-group-item">
 				<div class="input-group mb-3">
-					<div class="custom-file">
-						<input type="file" class="custom-file-input" name="thumbnail" id="thumbnail">
+					<div class="custom-file ">
+						<input type="file"  class="custom-file-input" name="thumbnail" id="thumbnail">
 						<label class="custom-file-label" for="thumbnail">Choose file</label>
 					</div>
 				</div>
-				<div class="img-thumbnail">
-					<img src="{{asset('images/no-thumbnail.jpeg')}}" id="imgthumbnail" class="img-fluid" alt="">
+				<div class="img-thumbnail  text-center">
+					<img src="@if(isset($product)) {{asset('images/'.$product->thumbnail)}} @else {{asset('images/no-thumbnail.jpeg')}} @endif" id="imgthumbnail" class="img-fluid" alt="">
+				</div>
+			</li>
+			<li class="list-group-item">
+				<div class="col-12">
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span class="input-group-text" id="featured"><input type="checkbox" name="discount" value="0" /></span>
+						</div>
+						<p type="text" class="form-control" name="featured" placeholder="0.00" aria-label="featured" aria-describedby="featured" >Featured Product</p>
+					</div>
 				</div>
 			</li>
 			<li class="list-group-item active"><h5>Select Categories</h5></li>
@@ -178,14 +168,14 @@ $('#btn-add').on('click', function(e){
 		var count = $('.options').length+1;
 		$('#extras').append('<div class="row align-items-center options">\
 						<div class="col-sm-4">\
-									<label class="form-control-label">Option <span>'+count+'</span></label>\
-									<input type="text" name="extra[\'option\'][]" class="form-control" value="" placeholder="size">\
+												<label class="form-control-label">Option <span>'+count+'</span></label>\
+												<input type="text" name="extra[\'option\'][]" class="form-control" value="" placeholder="size">\
 						</div>\
 						<div class="col-sm-8">\
-									<label class="form-control-label">Values</label>\
-									<input type="text" name="extra[\'values\'][]" class="form-control" placeholder="options1 | option2 | option3" />\
-									<label class="form-control-label">Additional Prices</label>\
-									<input type="text" name="extra[\'prices\'][]" class="form-control" placeholder="price1 | price2 | price3" />\
+												<label class="form-control-label">Values</label>\
+												<input type="text" name="extra[\'values\'][]" class="form-control" placeholder="options1 | option2 | option3" />\
+												<label class="form-control-label">Additional Prices</label>\
+												<input type="text" name="extra[\'prices\'][]" class="form-control" placeholder="price1 | price2 | price3" />\
 						</div>\
 					</div>');
 })
@@ -194,19 +184,6 @@ $('#btn-remove').on('click', function(e){
 		if($('.options').length > 1){
 			$('.options:last').remove();
 		}
-})
-   $("input[name=onsale]").flatpickr({
-   	altInput: true,
-    altFormat: "F j, Y",
-    dateFormat: "d-m-Y",
-    minDate: 'today'
-   });
-$('#discount input[type=checkbox]').on('click', function(){
-	
-	if($(this).is(":checked"))
-		$('input[name=discount_price]').removeAttr('disabled');
-	else
-		$('input[name=discount_price]').prop('disabled','disabled');
 })
 })
 </script>

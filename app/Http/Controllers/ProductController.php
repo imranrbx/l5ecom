@@ -37,10 +37,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         
-        foreach($request->extra as $key => $val){
-            $values[$key] = $val;
-        }
-       dump($values);
+       
     }
 
     /**
