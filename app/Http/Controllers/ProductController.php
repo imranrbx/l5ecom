@@ -16,7 +16,6 @@ class ProductController extends Controller
      */
     public function index()
     {
-        echo asset('images/no-thumbnail.jpeg');exit;
         $products = Product::all();
         return view('admin.products.index', compact('products'));
     }
@@ -48,7 +47,7 @@ class ProductController extends Controller
             'title'=>$request->title,
            'slug' => $request->slug,
            'description'=>$request->description,
-           'thumbnail' => asset($path),
+           'thumbnail' => $path,
            'status' => $request->status,
            'featured' => ($request->featured) ? $request->featured : 0,
            'price' => $request->price,
