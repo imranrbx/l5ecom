@@ -8,7 +8,8 @@ use App\Product;
 
 class Category extends Model
 {
-	use SoftDeletes;
+	 use SoftDeletes;
+
      protected $guarded = [];
 
      protected $dates = ['deleted_at'];
@@ -19,4 +20,9 @@ class Category extends Model
     public function childrens(){
     	return $this->belongsToMany(Category::class,'category_parent','category_id','parent_id');
     }
+    
+	public function getRouteKeyName(){
+   	 return 'slug';
+	}
+
 }

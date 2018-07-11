@@ -6,14 +6,25 @@
 @endsection
 @section('content')
 <h2 class="modal-title">Add/Edit Products</h2>
-<form  action="{{route('admin.product.store')}}" method="post" accept-charset="utf-8">
+<form  action="{{route('admin.product.store')}}" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 	<div class="row">
 		@csrf
 		<div class="col-lg-9">
 			<div class="form-group row">
+				<div class="col-sm-12">
+					@if ($errors->any())
+					<div class="alert alert-danger">
+						<ul>
+							@foreach ($errors->all() as $error)
+							<li>{{ $error }}</li>
+							@endforeach
+						</ul>
+					</div>
+					@endif
+				</div>
 				<div class="col-lg-12">
 					<label class="form-control-label">Title: </label>
-					<input type="text" id="txturl" name="title" class="form-control " {{@$product->title}} />
+					<input type="text" id="txturl" name="title" class="form-control " value="{{@$product->title}}" />
 					<p class="small">{{config('app.url')}}<span id="url">{{@$product->slug}}</span>
 					<input type="hidden" name="slug" id="slug" value="{{@$product->slug}}">
 				</p>
@@ -33,7 +44,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="basic-addon1">$</span>
 					</div>
-					<input type="text" class="form-control" placeholder="0.00" aria-label="Username" aria-describedby="basic-addon1" value="{{@$product->price}}" />
+					<input type="text" class="form-control" placeholder="0.00" aria-label="Username" aria-describedby="basic-addon1" name="price" value="{{@$product->price}}" />
 				</div>
 			</div>
 			<div class="col-6">
@@ -78,9 +89,9 @@
 			<li class="list-group-item active"><h5>Status</h5></li>
 			<li class="list-group-item">
 				<div class="form-group row">
-					<select class="form-control" id="status">
-						<option value="1">Pending</option>
-						<option value="2">Publish</option>
+					<select class="form-control" id="status" name="status">
+						<option value="0">Pending</option>
+						<option value="1">Publish</option>
 					</select>
 				</div>
 				<div class="form-group row">
@@ -114,12 +125,12 @@
 			</li>
 			<li class="list-group-item active"><h5>Select Categories</h5></li>
 			<li class="list-group-item ">
-				<select name="category_id" id="select2" class="form-control" multiple>
-					<option value="1">One</option>
-					<option value="2">Two</option>
-					<option value="3">Three</option>
-					<option value="4">Four</option>
-					
+				<select name="category_id[]" id="select2" class="form-control" multiple>
+					@if($categories->count() > 0)
+					@foreach($categories as $category)
+					<option value="{{$category->id}}">{{$category->title}}</option>
+					@endforeach
+					@endif
 				</select>
 			</li>
 		</ul>
@@ -168,14 +179,14 @@ $('#btn-add').on('click', function(e){
 		var count = $('.options').length+1;
 		$('#extras').append('<div class="row align-items-center options">\
 						<div class="col-sm-4">\
-												<label class="form-control-label">Option <span>'+count+'</span></label>\
-												<input type="text" name="extras[option][]" class="form-control" value="" placeholder="size">\
+													<label class="form-control-label">Option <span>'+count+'</span></label>\
+													<input type="text" name="extras[option][]" class="form-control" value="" placeholder="size">\
 						</div>\
 						<div class="col-sm-8">\
-												<label class="form-control-label">Values</label>\
-												<input type="text" name="extras[values][]" class="form-control" placeholder="options1 | option2 | option3" />\
-												<label class="form-control-label">Additional Prices</label>\
-												<input type="text" name="extras[prices][]" class="form-control" placeholder="price1 | price2 | price3" />\
+													<label class="form-control-label">Values</label>\
+													<input type="text" name="extras[values][]" class="form-control" placeholder="options1 | option2 | option3" />\
+													<label class="form-control-label">Additional Prices</label>\
+													<input type="text" name="extras[prices][]" class="form-control" placeholder="price1 | price2 | price3" />\
 						</div>\
 					</div>');
 })

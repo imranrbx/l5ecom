@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->boolean('discount');
             $table->string('discount_price');
             $table->string('thumbnail');
-            $table->text('options');
+            $table->text('options')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -76,7 +76,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-         $categories = Category::all();
+         $categories = Category::where('id','!=', $category->id)->get();
          return view('admin.categories.create',['categories' => $categories, 'category'=>$category]);
     }
 
@@ -89,6 +89,10 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+         $request->validate([
+            'title'=>'required|min:5',
+            'slug'=>'required|min:5|unique:categories'
+        ]);
 
         $category->title = $request->title;
         $category->description = $request->description;
@@ -121,7 +125,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        if($category->forceDelete()){
+        if($category->childrens()->detach() && $category->forceDelete()){
             return back()->with('message','Category Successfully Deleted!');
         }else{
             return back()->with('message','Error Deleting Record');
