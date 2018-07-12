@@ -16,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::with('categories')->paginate(3);
         return view('admin.products.index', compact('products'));
     }
 
@@ -42,7 +42,7 @@ class ProductController extends Controller
        $extension = ".".$request->thumbnail->getClientOriginalExtension();
        $name = basename($request->thumbnail->getClientOriginalName(), $extension).time();
        $name = $name.$extension;
-       $path = $request->thumbnail->storeAs('images', $name);
+       $path = $request->thumbnail->storeAs('images', $name, 'public');
        $product = Product::create([
             'title'=>$request->title,
            'slug' => $request->slug,
