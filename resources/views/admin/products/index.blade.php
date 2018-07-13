@@ -31,6 +31,7 @@
         <th>Description</th>
         <th>Slug</th>
         <th>Categories</th>
+        <th>Price</th>
         <th>Thumbnail</th>
         <th>Date Created</th>
         <th>Actions</th>
@@ -53,6 +54,7 @@
           <strong>{{"product"}}</strong>
           @endif
         </td>
+        <td>${{$product->price}}</td>
         <td><img src="{{asset('storage/'.$product->thumbnail)}}" alt="{{$product->title}}" class="img-responsive" height="50"/></td>
         @if($product->trashed())
          <td>{{$product->deleted_at}}</td>
@@ -90,4 +92,14 @@
     {{$products->links()}}
   </div>
 </div>
+@endsection
+@section('scripts')
+<script type="text/javascript">
+  function confirmDelete(id){
+    let choice = confirm("Are You sure, You want to Delete this Product ?")
+    if(choice){
+      document.getElementById('delete-product-'+id).submit();
+    }
+  }
+</script>
 @endsection

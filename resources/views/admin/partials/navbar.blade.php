@@ -20,7 +20,7 @@
       <div class="dropdown-menu" aria-labelledby="productDropdown">
         <a class="dropdown-item" href="{{route('admin.product.create')}}">Add Product</a>
         <a class="dropdown-item" href="{{route('admin.product.index')}}">All Products</a>
-        <a class="dropdown-item" href="{{route('admin.product.index')}}">Trashed Products</a>
+        <a class="dropdown-item" href="{{route('admin.product.trash')}}">Trashed Products</a>
       </div>
     </li>
     <li class="nav-item dropdown">
