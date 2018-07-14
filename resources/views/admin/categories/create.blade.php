@@ -5,7 +5,7 @@
 	<li class="breadcrumb-item active" aria-current="page">Add/Edit Category</li>
 @endsection
 @section('content')
-<form action="@if(isset($category)) {{route('admin.category.update', $category->id)}} @else {{route('admin.category.store')}} @endif" method="post" accept-charset="utf-8">
+<form action="@if(isset($category)) {{route('admin.category.update', $category)}} @else {{route('admin.category.store')}} @endif" method="post" accept-charset="utf-8">
 	@csrf
 	@if(isset($category))
 		@method('PUT')

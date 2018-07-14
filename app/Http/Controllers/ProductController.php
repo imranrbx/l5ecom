@@ -69,7 +69,7 @@ class ProductController extends Controller
            'discount_price' => ($request->discount_price) ? $request->discount_price : 0,
        ]);
        if($product){
-            $product->categories()->attach($request->category_id);
+            $product->categories()->attach($request->category_id,['created_at'=>now(), 'updated_at'=>now()]);
             return back()->with('message', 'Product Successfully Added');
        }else{
             return back()->with('message', 'Error Inserting Product');

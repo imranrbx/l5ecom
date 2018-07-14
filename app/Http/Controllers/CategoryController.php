@@ -89,15 +89,9 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-         $request->validate([
-            'title'=>'required|min:5',
-            'slug'=>'required|min:5|unique:categories'
-        ]);
-
         $category->title = $request->title;
         $category->description = $request->description;
         $category->slug = $request->slug;
-        
         //detach all parent categories
         $category->childrens()->detach();
         //attach selected parent categories
@@ -105,7 +99,10 @@ class CategoryController extends Controller
         //save current record into database
         $saved = $category->save();
         //return back to the /add/edit form
-        return back()->with('message','Record Successfully Updated!');
+        if($saved)
+            return back()->with('message','Record Successfully Updated!');
+        else
+            return back()->with('message', 'Error Updating Category');
     }
 
     public function recoverCat($id)
