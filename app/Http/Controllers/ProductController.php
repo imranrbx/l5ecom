@@ -27,7 +27,7 @@ class ProductController extends Controller
      */
     public function trash()
     {
-        $products = Product::onlyTrashed()->paginate(3);
+        $products = Product::with('categories')->onlyTrashed()->paginate(3);
         return view('admin.products.index', compact('products'));
     }
 
@@ -38,7 +38,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::with('childrens')->get();
         return view('admin.products.create', compact('categories'));
     }
 
@@ -48,7 +48,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProduct $request)
+    public function store(Request $request)
     {  
       $path = 'images/no-thumbnail.jpeg';
       if($request->has('thumbnail')){
@@ -63,6 +63,7 @@ class ProductController extends Controller
            'description'=>$request->description,
            'thumbnail' => $path,
            'status' => $request->status,
+           'options' => isset($request->extras) ? json_encode($request->extras) : null,
            'featured' => ($request->featured) ? $request->featured : 0,
            'price' => $request->price,
            'discount'=>$request->discount ? $request->discount : 0,
@@ -95,7 +96,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-       $categories = Category::all();
+       $categories = Category::with('childrens')->get();
        return view('admin.products.create',compact('product', 'categories'));
     }
 
@@ -135,7 +136,7 @@ class ProductController extends Controller
     }
  public function recoverProduct($id)
     {
-        $product = Product::onlyTrashed()->findOrFail($id);
+        $product = Product::with('categories')->onlyTrashed()->findOrFail($id);
         if($product->restore())
             return back()->with('message','Product Successfully Restored!');
         else

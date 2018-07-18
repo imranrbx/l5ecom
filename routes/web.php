@@ -29,7 +29,14 @@ Route::group(['as'=>'admin.', 'middleware'=>['auth','admin'], 'prefix'=>'admin']
 	Route::get('product/trash', 'ProductController@trash')->name('product.trash');
 	Route::get('product/recover/{id}', 'ProductController@recoverProduct')->name('product.recover');
 	
+	Route::view('product/extras', 'admin.partials.extras')->name('product.extras');
+
+	Route::get('profile/{profile}/remove','ProfileController@remove')->name('profile.remove');
+	Route::get('profile/trash', 'ProfileController@trash')->name('profile.trash');
+	Route::get('profile/recover/{id}', 'ProfileController@recoverProduct')->name('profile.recover');
+	
 	Route::get('dashboard', 'AdminController@dashboard')->name('dashboard');
 	Route::resource('product', 'ProductController');
 	Route::resource('category', 'CategoryController');
+	Route::resource('profile','ProfileController');
 });
