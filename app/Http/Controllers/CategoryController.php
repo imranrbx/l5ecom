@@ -128,6 +128,14 @@ class CategoryController extends Controller
             return back()->with('message','Error Deleting Record');
         }
     }
+    public function fetchCategories($id = 0){
+
+        if($id == 0)
+            return Category::all();
+
+      $category =  Category::where('id', $id)->first();
+      return $category->childrens;
+    }
 
         /**
      * Remove the specified resource from storage.

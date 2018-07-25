@@ -24,7 +24,7 @@ Route::group(['as'=>'admin.', 'middleware'=>['auth','admin'], 'prefix'=>'admin']
 	Route::get('category/{category}/remove','CategoryController@remove')->name('category.remove');
 	Route::get('category/trash', 'CategoryController@trash')->name('category.trash');
 	Route::get('category/recover/{id}', 'CategoryController@recoverCat')->name('category.recover');
-	
+
 	Route::get('product/{product}/remove','ProductController@remove')->name('product.remove');
 	Route::get('product/trash', 'ProductController@trash')->name('product.trash');
 	Route::get('product/recover/{id}', 'ProductController@recoverProduct')->name('product.recover');
@@ -34,6 +34,10 @@ Route::group(['as'=>'admin.', 'middleware'=>['auth','admin'], 'prefix'=>'admin']
 	Route::get('profile/{profile}/remove','ProfileController@remove')->name('profile.remove');
 	Route::get('profile/trash', 'ProfileController@trash')->name('profile.trash');
 	Route::get('profile/recover/{id}', 'ProfileController@recoverProduct')->name('profile.recover');
+	Route::view('profile/roles', 'admin.partials.extras')->name('profile.extras');	
+
+	Route::get('profile/states/{id?}', 'ProfileController@getStates')->name('profile.states');
+	Route::get('profile/cities/{id?}', 'ProfileController@getCities')->name('profile.cities');
 	
 	Route::get('dashboard', 'AdminController@dashboard')->name('dashboard');
 	Route::resource('product', 'ProductController');

@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\City;
+use App\Country;
+use App\Http\Requests\StoreUserProfile;
 use App\Profile;
+use App\Role;
+use App\State;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -36,7 +41,9 @@ class ProfileController extends Controller
      */
     public function create()
     {
-        //
+        $roles = Role::all();
+        $countries = Country::all();
+        return view('admin.users.create',compact('roles','countries'));
     }
 
     /**
@@ -45,9 +52,36 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserProfile $request)
     {
-        //
+        $path = 'images/profile/no-thumbnail.jpeg';
+      if($request->has('thumbnail')){
+       $extension = ".".$request->thumbnail->getClientOriginalExtension();
+       $name = basename($request->thumbnail->getClientOriginalName(), $extension).time();
+       $name = $name.$extension;
+       $path = $request->thumbnail->storeAs('images/profile', $name, 'public');
+     }
+       $user = User::create([
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'status' => $request->status,
+       ]);
+       if($user){
+        $profile = Profile::create([
+            'user_id' => $user->id,
+            'name' => $request->name,
+            'thumbnail' => $path,
+            'country_id' => $request->country_id,
+            'state_id' => $request->state_id,
+            'city_id' => $request->city_id,
+            'phone' => $request->phone,
+            'slug' => $request->slug,
+        ]);
+       }
+       if($user && $profile)
+            return redirect(route('admin.profile.index'))->with('message','User Created Successfully');
+        else
+            return back()->with('message', 'Error Inserting new User');
     }
 
     /**
@@ -69,7 +103,10 @@ class ProfileController extends Controller
      */
     public function edit(Profile $profile)
     {
-        //
+        $user = User::find($profile)->first();
+        
+        $roles = Role::all();
+        return view('admin.users.create',compact('user','roles'));
     }
 
     /**
@@ -114,6 +151,21 @@ class ProfileController extends Controller
             return back()->with('message','Product Successfully Trashed!');
         }else{
             return back()->with('message','Error Deleting Product');
+        }
+    }
+
+    public function getStates(Request $request, $id){
+        if($request->ajax())
+            return State::where('country_id', $id)->get();
+        else{
+            return 0;
+        }
+    }
+    public function getCities(Request $request, $id){
+        if($request->ajax())
+            return City::where('state_id', $id)->get();
+        else{
+            return 0;
         }
     }
 }

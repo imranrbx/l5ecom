@@ -111,6 +111,7 @@ class ProductController extends Controller
     {
 
         if($request->has('thumbnail')){
+            Storage::delete($product->thumbnail);
            $extension = ".".$request->thumbnail->getClientOriginalExtension();
            $name = basename($request->thumbnail->getClientOriginalName(), $extension).time();
            $name = $name.$extension;

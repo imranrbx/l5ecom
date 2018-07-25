@@ -40,4 +40,13 @@ class User extends Authenticatable
     public function getRouteKeyName(){
      return 'slug';
     }
+    public function getCountry(){
+        return $this->profile->country->name;
+    }
+        public function getState(){
+        return $this->profile->state->name;
+    }
+        public function getCity(){
+        return $this->profile->city->name;
+    }
 }

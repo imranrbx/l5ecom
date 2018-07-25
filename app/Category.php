@@ -18,7 +18,7 @@ class Category extends Model
     	return $this->belongsToMany('App\Product');
     }
     public function childrens(){
-    	return $this->belongsToMany(Category::class,'category_parent','category_id','parent_id');
+        return $this->belongsToMany(Category::class,'category_parent','parent_id','category_id');
     }
     
 	public function getRouteKeyName(){

@@ -46,8 +46,8 @@
         <td>{{@$user->email}}</td>
         <td>{{@$user->profile->slug}}</td>
         <td>{{$user->role->name}}</td>
-        <td>{{@$user->profile->address}}</td>
-        <td><img src="{{asset('storage/'.$user->thumbnail)}}" alt="{{@$user->title}}" class="img-responsive" height="50"/></td>
+        <td>{{@$user->profile->address}},{{@$user->getCountry()}},{{@$user->getState()}}, {{@$user->getCity()}}</td>
+        <td><img src="{{asset('storage/'.$user->profile->thumbnail)}}" alt="{{@$user->profile->name}}" class="img-responsive" height="50"/></td>
         @if($user->trashed())
          <td>{{@$user->deleted_at}}</td>
         <td><a class="btn btn-info btn-sm" href="{{route('admin.profile.recover',$user->id)}}">Restore</a> | <a class="btn btn-danger btn-sm" href="javascript:;" onclick="confirmDelete('{{$user->id}}')">Delete</a>

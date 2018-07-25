@@ -29,7 +29,7 @@
         <th>Title</th>
         <th>Description</th>
         <th>Slug</th>
-        <th>Categories</th>
+        <th>Childrens</th>
         <th>Date Created</th>
         <th>Actions</th>
       </tr>
