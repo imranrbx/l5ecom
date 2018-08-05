@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Profile;
 
 class StoreUserProfile extends FormRequest
 {
@@ -25,8 +26,8 @@ class StoreUserProfile extends FormRequest
     {
         return [
            'name' => 'required',
-           'slug'=>'required',
-           'email'=> 'required|email|unique:users',
+           'slug'=>'required|unique:profiles,slug,'.$this->slug.',slug',
+           'email'=> 'required|email|unique:users,slug,'.$this->slug.',slug',
            'password' => 'required|same:password_confirm',
            'password_confirm'=> 'required',
            'status' => 'required',

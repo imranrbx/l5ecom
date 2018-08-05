@@ -55,12 +55,12 @@ class ProfileController extends Controller
     public function store(StoreUserProfile $request)
     {
         $path = 'images/profile/no-thumbnail.jpeg';
-      if($request->has('thumbnail')){
-       $extension = ".".$request->thumbnail->getClientOriginalExtension();
-       $name = basename($request->thumbnail->getClientOriginalName(), $extension).time();
-       $name = $name.$extension;
-       $path = $request->thumbnail->storeAs('images/profile', $name, 'public');
-     }
+        if($request->has('thumbnail')){
+            $extension = ".".$request->thumbnail->getClientOriginalExtension();
+            $name = basename($request->thumbnail->getClientOriginalName(), $extension).time();
+            $name = $name.$extension;
+            $path = $request->thumbnail->storeAs('images/profile', $name, 'public');
+        }
        $user = User::create([
             'email' => $request->email,
             'password' => bcrypt($request->password),

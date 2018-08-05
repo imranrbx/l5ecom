@@ -53,7 +53,7 @@ class CategoryController extends Controller
             'slug'=>'required|min:5|unique:categories'
         ]);
         $categories = Category::create($request->only('title','description','slug'));
-        $categories->childrens()->attach($request->parent_id);
+        $categories->childrens()->attach($request->parent_id,['created_at'=>now(), 'updated_at'=>now()]);
         return back()->with('message','Category Added Successfully!');
     }
 
@@ -95,7 +95,7 @@ class CategoryController extends Controller
         //detach all parent categories
         $category->childrens()->detach();
         //attach selected parent categories
-        $category->childrens()->attach($request->parent_id);
+        $category->childrens()->attach($request->parent_id,['created_at'=>now(), 'updated_at'=>now()]);
         //save current record into database
         $saved = $category->save();
         //return back to the /add/edit form

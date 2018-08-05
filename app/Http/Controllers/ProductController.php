@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Http\Requests\StoreProduct;
 use App\Product;
+use App\CategoryParent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -42,13 +43,27 @@ class ProductController extends Controller
         return view('admin.products.create', compact('categories'));
     }
 
+        /**
+     * Display the specified resource.
+     *
+     * @param  \App\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function show()
+    {
+       $categories = Category::all();
+       $products = Product::all();
+       return view('products.all', compact('categories','products'));
+    }
+
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProduct $request)
     {  
       $path = 'images/no-thumbnail.jpeg';
       if($request->has('thumbnail')){
@@ -71,21 +86,10 @@ class ProductController extends Controller
        ]);
        if($product){
             $product->categories()->attach($request->category_id,['created_at'=>now(), 'updated_at'=>now()]);
-            return back()->with('message', 'Product Successfully Added');
+            return redirect(route('admin.product.index'))->with('message', 'Product Successfully Added');
        }else{
             return back()->with('message', 'Error Inserting Product');
        }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Product $product)
-    {
-        //
     }
 
     /**
@@ -107,7 +111,7 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(StoreProduct $request, Product $product)
     {
 
         if($request->has('thumbnail')){
@@ -119,7 +123,7 @@ class ProductController extends Controller
            $product->thumbnail = $path;
          }
         $product->title =$request->title;
-        $product->slug = $request->slug;
+        //$product->slug = $request->slug;
         $product->description = $request->description;
         $product->status = $request->status;
         $product->featured = ($request->featured) ? $request->featured : 0;
@@ -129,8 +133,8 @@ class ProductController extends Controller
         $product->categories()->detach();
         
         if($product->save()){
-            $product->categories()->attach($request->category_id);
-            return back()->with('message', "Product Successfully Updated!");
+            $product->categories()->attach($request->category_id, ['created_at'=>now(), 'updated_at'=>now()]);
+            return redirect(route('admin.product.index'))->with('message', "Product Successfully Updated!");
         }else{
             return back()->with('message', "Error Updating Product");
         }

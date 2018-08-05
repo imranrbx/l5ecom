@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Product;
+use App\CategoryParent;
 
 class Category extends Model
 {
@@ -15,7 +16,7 @@ class Category extends Model
      protected $dates = ['deleted_at'];
     
      public function products(){
-    	return $this->belongsToMany('App\Product');
+    	return $this->belongsToMany('App\Product', 'category_product');
     }
     public function childrens(){
         return $this->belongsToMany(Category::class,'category_parent','parent_id','category_id');

@@ -160,17 +160,13 @@ console.log( editor );
 .catch( error => {
 console.error( error );
 } );
-      @php
-        if(!isset($product)){
-      @endphp
+     
 		$('#txturl').on('keyup', function(){
 			const pretty_url = slugify($(this).val());
 			$('#url').html(slugify(pretty_url));
 			$('#slug').val(pretty_url);
 		})
-		@php
-		 }
-		@endphp
+		
 		$('#select2').select2({
 			placeholder: "Select multiple Categories",
 		allowClear: true
