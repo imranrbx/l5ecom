@@ -10951,3 +10951,45 @@ footer p {
   margin-bottom: .25rem;
 }
 
+/* Fixed sidenav, full height */
+
+/* Style the sidenav links and the dropdown button */
+
+.sidenav a,
+.dropdown-btn {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  display: block;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+
+.dropdown-container {
+  display: none;
+  padding-left: 20px;
+}
+
+/* Some media queries for responsiveness */
+
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+
+  .sidenav a {
+    font-size: 18px;
+  }
+}
+
+svg.feather.feather-arrow-down-circle,
+svg.feather.feather-arrow-right-circle {
+  padding-top: 10px;
+}
+

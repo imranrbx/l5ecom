@@ -8,6 +8,8 @@ use App\Product;
 use App\CategoryParent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Cart;
+use Session;
 
 class ProductController extends Controller
 {
@@ -51,12 +53,26 @@ class ProductController extends Controller
      */
     public function show()
     {
-       $categories = Category::all();
-       $products = Product::all();
+       //dd(Session::get('cart'));
+       $categories = Category::with('childrens')->get();
+       $products = Product::with('categories')->paginate(3);
        return view('products.all', compact('categories','products'));
     }
 
+    
+    public function single(Product $product){
+      return view('products.single', compact('product'));
+    }
 
+
+    public function addToCart(Product $product, Request $request){
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $qty = $request->qty ? $request->qty : 1;
+        $cart = new Cart($oldCart);
+        $cart->addProduct($product, $qty);
+        Session::put('cart', $cart);
+        return back()->with('message', "Product $product->title has been successfully added to Cart");
+    }
     /**
      * Store a newly created resource in storage.
      *

@@ -1,2 +1,1 @@
-<h2>Sidebar</h2>
-{{dd($categories)}}
+<h2>Categories</h2>

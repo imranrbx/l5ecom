@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('sidebar')
 <div class="m-md-5">
-	@include('layouts/partials/sidebar')
+	@parent
 </div>
 @endsection
-@section('contents')
+@section('content')
 	@include('layouts/partials/products')
 @endsection

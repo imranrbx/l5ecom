@@ -76,15 +76,23 @@
                 </div>
                 <div class="row">
                 <div class="col-md-3">
-                   @yield('sidebar')
+                   @section('sidebar')
+                      @include('layouts.partials.sidebar')
+                   @show
                 </div>
                 <div class="col-md-9">
-                    @yield('contents')
+                    @if(session()->has('message'))
+                        <p class="alert alert-success">
+                            {{ session()->get('message') }}
+                        </p>
+                    @endif
+                    @yield('content')
                 </div>
             </div>
         </div>
     </div>
 </div>
 <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
+
 </body>
 </html>

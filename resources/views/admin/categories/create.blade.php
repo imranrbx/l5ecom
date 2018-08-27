@@ -45,7 +45,7 @@
 	</div>
 	<div class="form-group row">
 		@php 
-			$ids = (isset($category->childrens) && $category->childrens->count() > 0 ) ? array_pluck($category->childrens, 'id') : null
+			$ids = (isset($category->parents) && $category->parents->count() > 0 ) ? array_pluck($category->parents, 'id') : null
 		@endphp
 		<div class="col-sm-12">
 			<label class="form-control-label">Select Category: </label>

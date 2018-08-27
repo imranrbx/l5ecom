@@ -18,9 +18,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
 Route::group(['as'=>'products.', 'prefix'=>'products'], function(){
 	Route::get('/', 'ProductController@show')->name('all');
+	Route::get('/{product}', 'ProductController@single')->name('single');
+	Route::get('/addToCart/{product}', 'ProductController@addToCart')->name('addToCart');
 });
+
 Route::group(['as'=>'admin.', 'middleware'=>['auth','admin'], 'prefix'=>'admin'], function(){
 	
 	Route::get('/', 'AdminController@dashboard');
