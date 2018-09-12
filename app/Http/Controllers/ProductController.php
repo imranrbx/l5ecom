@@ -73,6 +73,32 @@ class ProductController extends Controller
         Session::put('cart', $cart);
         return back()->with('message', "Product $product->title has been successfully added to Cart");
     }
+
+    public function cart(){
+
+      if(!Session::has('cart')){
+        return view('products.cart');
+      }
+      $cart = Session::get('cart');
+      return view('products.cart', compact('cart'));
+    }
+
+   public function removeProduct(Product $product){
+      $oldCart = Session::has('cart') ? Session::get('cart') : null;
+      $cart = new Cart($oldCart);
+      $cart->removeProduct($product);
+      Session::put('cart', $cart);
+      return back()->with('message', "Product $product->title has been successfully removed From the Cart");
+   }
+
+    public function updateProduct(Product $product, Request $request){
+  
+      $oldCart = Session::has('cart') ? Session::get('cart') : null;
+      $cart = new Cart($oldCart);
+      $cart->updateProduct($product, $request->qty );
+      Session::put('cart', $cart);
+      return back()->with('message', "Product $product->title has been successfully Updated in the Cart");
+   }
     /**
      * Store a newly created resource in storage.
      *

@@ -25,6 +25,12 @@ Route::group(['as'=>'products.', 'prefix'=>'products'], function(){
 	Route::get('/addToCart/{product}', 'ProductController@addToCart')->name('addToCart');
 });
 
+Route::group(['as'=>'cart.', 'prefix'=>'cart'], function(){
+	Route::get('/', 'ProductController@cart')->name('all');
+	Route::post('/remove/{product}', 'ProductController@removeProduct')->name('remove');
+	Route::post('/update/{product}', 'ProductController@updateProduct')->name('update');
+});
+
 Route::group(['as'=>'admin.', 'middleware'=>['auth','admin'], 'prefix'=>'admin'], function(){
 	
 	Route::get('/', 'AdminController@dashboard');
