@@ -74,7 +74,8 @@
                     </section>
                 </div>
                 </div>
-                <div class="row">
+                <div class="container-fluid">
+                <div class="row py-2">
                 <div class="col-md-3">
                    @section('sidebar')
                       @include('layouts.partials.sidebar')
@@ -87,6 +88,7 @@
                         </p>
                     @endif
                     @yield('content')
+                </div>
                 </div>
             </div>
         </div>
