@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\DB;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,7 +14,10 @@ use Illuminate\Support\Facades\DB;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::view('/checkout', 'products.checkout');
+Route::get('/checkout', function(){
+    return view('products.checkout');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
