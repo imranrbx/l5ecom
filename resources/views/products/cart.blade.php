@@ -13,7 +13,7 @@
 			</tr>
 		</thead>
 		<tbody>
-
+			
 			@foreach($cart->getContents() as $slug => $product)
 			
 				<tr>
@@ -67,5 +67,7 @@
 			</tbody>
 		</table>
 		</div> <!-- card.// -->
+	@else
+		<p class="alert alert-danger">No Products in the Cart <a href="{{route('products.all')}}">Buy Some Products</a></p>
 	@endif
 		@endsection
