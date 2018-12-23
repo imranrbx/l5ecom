@@ -1,16 +1,20 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Order;
-use App\Customer;
-use Illuminate\Http\Request;
 use App\Cart;
-use Session;
+use App\Customer;
 use App\Http\Requests\StoreOrder;
+use App\Order;
+use Illuminate\Http\Request;
 use DB;
+
+use Session;
+
 class OrderController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
