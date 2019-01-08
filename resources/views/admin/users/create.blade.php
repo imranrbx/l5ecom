@@ -35,26 +35,26 @@
 				<div class="col-sm-12 col-md-6">
 					<label class="form-control-label">Name: </label>
 					<input type="text" id="txturl" name="name" class="form-control " value="{{@$user->profile->name}}" />
-					<p class="small">{{route('admin.profile.index')}}/<span id="url">{{@$user->profile->slug}}</span>
+					<p class="small">{{route('admin.profile.index')}}/<span id="url">{{$user->profile->slug}}</span>
 					<input type="hidden" name="slug" id="slug" value="{{@$user->profile->slug}}">
 				</p>
 			</div>
 			<div class="col-sm-12 col-md-6">
 				<label class="form-control-label">Email: </label>
 				<input type="text" id="email" name="email" class="form-control " value="{{@$user->email}}" />
-				
+
 			</div>
 		</div>
 		<div class="form-group row">
 			<div class="col-sm-12 col-md-6">
 				<label class="form-control-label">Password: </label>
 				<input type="password" id="password" name="password" class="form-control " value="{{@$user->profile->name}}" />
-				
+
 			</div>
 			<div class="col-sm-12 col-md-6">
 				<label class="form-control-label">Re-Type Password: </label>
 				<input type="password" id="password_confirm" name="password_confirm" class="form-control " value="" />
-				
+
 			</div>
 		</div>
 		<div class="form-group row">
@@ -70,7 +70,7 @@
 			@php
 			$ids = (isset($user->role) && $user->role->count() > 0 ) ? array_pluck($user->role->toArray(), 'id') : null;
 			@endphp
-			
+
 			<div class="col-sm-6">
 				<label class="form-control-label">Select Role</label>
 				<select name="role_id" id="role" class="form-control">
@@ -116,12 +116,12 @@
 					</select>
 				</div>
 			</div>
-			
+
 			<div class="col-sm-6 col-md-3">
 				<label class="form-control-label">City: </label>
 				<div class="input-group mb-3">
 					<select name="city_id" class="form-control" id="cities">
-						
+
 					</select>
 				</div>
 			</div>
@@ -135,7 +135,7 @@
 	</div>
 	<div class="col-lg-3">
 		<ul class="list-group row">
-			
+
 			<li class="list-group-item active"><h5>Profile Image</h5></li>
 			<li class="list-group-item">
 				<div class="input-group mb-3">
@@ -157,7 +157,7 @@
 						<input type="submit" name="submit" class="btn btn-primary btn-block " value="Add user" />
 						@endif
 					</div>
-					
+
 				</div>
 			</li>
 		</ul>

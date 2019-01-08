@@ -68,6 +68,8 @@ class RegisterController extends Controller {
 	protected function registered(Request $request, $user) {
 		Profile::create([
 			'user_id' => $user->id,
+			'slug' => $user->id,
+			'thumbnail' => 'image/profile/no-thumbnail.jepg',
 		]);
 	}
 }

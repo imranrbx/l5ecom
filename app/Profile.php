@@ -2,35 +2,33 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use App\User;
+use App\City;
 use App\Country;
 use App\State;
-use App\City;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Profile extends Model
-{
+class Profile extends Model {
 	use SoftDeletes;
-   protected $guarded = [];
-    protected $dates = ['deleted_at'];
-    //
-    public function getRouteKeyName(){
-   	 return 'slug';
+	protected $guarded = [];
+	protected $dates = ['deleted_at'];
+	//
+	public function getRouteKeyName() {
+		return 'slug';
 	}
-	public function users(){
-		return $this->belongsToMany('App\User');
+	public function user() {
+		return $this->belongsTo('App\User');
 	}
-	public function country(){
+	public function country() {
 		return $this->belongsTo('App\Country');
 	}
-		public function state(){
+	public function state() {
 		return $this->belongsTo('App\State');
 	}
-		public function city(){
+	public function city() {
 		return $this->belongsTo('App\City');
 	}
-	public function getCountry(){
+	public function getCountry() {
 		return $this->country->name;
 	}
 }
