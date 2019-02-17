@@ -42,12 +42,12 @@
         </div>
         <div class="col-md-8 order-md-1">
           <h4 class="mb-3">Billing address</h4>
-          <form class="needs-validation" novalidate="" action="{{route('checkout.store')}}" method="post">
+          <form action="{{route('checkout.store')}}" method="post" id="payment-form">
           	@csrf
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="firstName">First name</label>
-                <input type="text" name="billing_firstName" class="form-control" id="firstName" placeholder="" value="" required="" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+                <input type="text" name="billing_firstName" class="form-control" id="firstName" placeholder="" value="" required="">
                 @if($errors->has('billing_firstName'))
                   <div class="alert alert-danger">
                     {{$errors->first('billing_firstName')}}
@@ -65,24 +65,24 @@
               </div>
             </div>
 
-            <div class="mb-3">
+{{--             <div class="mb-3">
               <label for="username">Username</label>
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">@</span>
                 </div>
-                <input name="username" type="text" class="form-control" id="username" placeholder="Username" required="">
+                <input name="username" type="text" class="form-control" id="username" placeholder="Username" required="" value="{{ @Auth::user()->email}}">
                  @if($errors->has('username'))
                   <div class="alert alert-danger">
                     {{$errors->first('username')}}
                   </div>
                   @endif
               </div>
-            </div>
+            </div> --}}
 
             <div class="mb-3">
               <label for="email">Email <span class="text-muted">(Optional)</span></label>
-              <input type="email" name="email" class="form-control" id="email" placeholder="you@example.com">
+              <input type="email" name="email" class="form-control" id="email" placeholder="you@example.com" value="{{ @Auth::user()->email}}">
               @if($errors->has('email'))
                   <div class="alert alert-danger">
                     {{$errors->first('email')}}
@@ -154,7 +154,7 @@
               <input type="checkbox" class="custom-control-input" id="save-info">
               <label name="guest" class="custom-control-label" for="save-info">Checkout as Guest</label>
             </div>
-            
+
 
             <div id="shipping_address" class="col-md-12 order-md-1">
             	<hr class="mb-4">
@@ -162,18 +162,18 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="firstName">First name</label>
-                <input name="shipping_firstName" type="text" class="form-control" id="firstName" placeholder="" value="" required="" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
-               
+                <input name="shipping_firstName" type="text" class="form-control" id="firstName" placeholder="" value="">
+
               </div>
               <div class="col-md-6 mb-3">
                 <label for="lastName">Last name</label>
-                <input type="text" name="shipping_lastName" class="form-control" id="lastName" placeholder="" value="" required="">
+                <input type="text" name="shipping_lastName" class="form-control" id="lastName" placeholder="" value="" >
 
               </div>
             </div>
             <div class="mb-3">
               <label for="address">Address</label>
-              <input type="text" name="shipping_address1" class="form-control" id="address" placeholder="1234 Main St" required="">
+              <input type="text" name="shipping_address1" class="form-control" id="address" placeholder="1234 Main St">
               <div class="invalid-feedback">
                 Please enter your shipping address.
               </div>
@@ -187,29 +187,41 @@
             <div class="row">
               <div class="col-md-5 mb-3">
                 <label for="country">Country</label>
-                <select name="shipping_country" class="custom-select d-block w-100" id="country" required="">
+                <select name="shipping_country" class="custom-select d-block w-100" id="country" >
                   <option value="">Choose...</option>
                   <option>United States</option>
                 </select>
-               
+
               </div>
               <div class="col-md-4 mb-3">
                 <label for="state">State</label>
-                <select name="shipping_state" class="custom-select d-block w-100" id="state" required="">
+                <select name="shipping_state" class="custom-select d-block w-100" id="state" >
                   <option value="">Choose...</option>
                   <option>California</option>
                 </select>
-               
+
               </div>
               <div class="col-md-3 mb-3">
                 <label for="zip">Zip</label>
-                <input type="text" name="shipping_zip" class="form-control" id="zip" placeholder="" required="">
-                
+                <input type="text" name="shipping_zip" class="form-control" id="zip" placeholder="" >
+
               </div>
             </div>
              </div>
             <hr class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+            <script src="https://js.stripe.com/v3/"></script>
+              <div class="form-row">
+              <label for="card-element">
+                Credit or debit card
+              </label>
+              <div id="card-element">
+                <!-- A Stripe Element will be inserted here. -->
+              </div>
+
+              <!-- Used to display form errors. -->
+              <div id="card-errors" role="alert"></div>
+            </div>
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Checkout</button>
           </form>
        </div>
       </div>
