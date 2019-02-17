@@ -1,5 +1,5 @@
 body {
-  font-size: .875rem;
+  font-size: 0.875rem;
 }
 
 .feather {
@@ -21,15 +21,14 @@ body {
   /* Behind the navbar */
   padding: 48px 0 0;
   /* Height of navbar */
-  -webkit-box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
-          box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
 }
 
 .sidebar-sticky {
   position: relative;
   top: 0;
   height: calc(100vh - 48px);
-  padding-top: .5rem;
+  padding-top: 0.5rem;
   overflow-x: hidden;
   overflow-y: auto;
   /* Scrollable contents if viewport is shorter than content. */
@@ -62,7 +61,7 @@ body {
 }
 
 .sidebar-heading {
-  font-size: .75rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
 }
 
@@ -70,7 +69,7 @@ body {
  * Content
  */
 
-[role="main"] {
+[role=main] {
   padding-top: 48px;
   /* Space for fixed navbar */
 }
@@ -80,16 +79,15 @@ body {
  */
 
 .navbar-brand {
-  padding-top: .75rem;
-  padding-bottom: .75rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
   font-size: 1rem;
   background-color: rgba(0, 0, 0, 0.25);
-  -webkit-box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.25);
-          box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.25);
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.25);
 }
 
 .navbar .form-control {
-  padding: .75rem 1rem;
+  padding: 0.75rem 1rem;
   border-width: 0;
   border-radius: 0;
 }
@@ -102,8 +100,7 @@ body {
 
 .form-control-dark:focus {
   border-color: transparent;
-  -webkit-box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
-          box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
 }
 
 /*

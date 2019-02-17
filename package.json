@@ -14,9 +14,13 @@
         "bootstrap": "^4.3.1",
         "cross-env": "^5.1",
         "jquery": "^3.2",
-        "laravel-mix": "^2.1.14",
+        "laravel-mix": "^4.0.14",
         "lodash": "^4.17.11",
-        "popper.js": "^1.14.7"
+        "popper.js": "^1.14.7",
+        "resolve-url-loader": "^2.3.1",
+        "sass": "^1.17.0",
+        "sass-loader": "^7.1.0",
+        "vue-template-compiler": "^2.6.6"
     },
     "dependencies": {
         "@ckeditor/ckeditor5-build-classic": "^10.1.0",
