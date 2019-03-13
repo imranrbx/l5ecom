@@ -42,7 +42,7 @@
         </div>
         <div class="col-md-8 order-md-1">
           <h4 class="mb-3">Billing address</h4>
-          <form action="{{route('checkout.store')}}" method="post" id="payment-form">
+          <form action="{{route('checkout.paypal')}}" method="post" id="payment-form">
           	@csrf
             <div class="row">
               <div class="col-md-6 mb-3">
@@ -209,7 +209,7 @@
             </div>
              </div>
             <hr class="mb-4">
-            <script src="https://js.stripe.com/v3/"></script>
+            {{-- <script src="https://js.stripe.com/v3/"></script> --}}
               <div class="form-row">
               <label for="card-element">
                 Credit or debit card
@@ -220,8 +220,8 @@
 
               <!-- Used to display form errors. -->
               <div id="card-errors" role="alert"></div>
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Paypal Payment</button>
             </div>
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Checkout</button>
           </form>
        </div>
       </div>

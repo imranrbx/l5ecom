@@ -15,6 +15,9 @@ Route::get('/', function () {
 	return view('welcome');
 });
 Route::resource('checkout', 'OrderController');
+Route::post('paypal', 'OrderController@paypal')->name('checkout.paypal');
+Route::get('returnPaypal', 'OrderController@returnPaypal')->name('process.paypal');
+Route::get('cancelPaypal', 'OrderController@cancelPaypal')->name('cancel.paypal');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
