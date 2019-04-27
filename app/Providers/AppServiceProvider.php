@@ -4,7 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
-
+use DB;
+use Log;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -15,6 +16,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        DB::listen(function($query) {
+            Log::info(
+                $query->sql,
+                $query->bindings,
+                $query->time
+            );
+        });
     }
 
     /**

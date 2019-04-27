@@ -58,3 +58,6 @@ Route::group(['as' => 'admin.', 'middleware' => ['auth', 'admin'], 'prefix' => '
 	Route::resource('category', 'CategoryController');
 	Route::resource('profile', 'ProfileController');
 });
+Route::get('bydate', function(){
+	return \App\User::where('created_at','=', '2019-03-22 12:50:23')->get();
+});
